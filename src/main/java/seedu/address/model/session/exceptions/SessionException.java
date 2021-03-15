@@ -1,9 +1,12 @@
 package seedu.address.model.session.exceptions;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.session.Session;
+
 /**
  * Error during the creation of a session {@link Session}.
  */
-public class SessionException extends Exception {
+public class SessionException extends IllegalValueException {
     public SessionException(String message) {
         super(message);
     }

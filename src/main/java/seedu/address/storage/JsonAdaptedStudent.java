@@ -3,12 +3,20 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.session.Session;
+import seedu.address.model.session.exceptions.SessionException;
 import seedu.address.model.student.Address;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.Name;
 import seedu.address.model.student.Phone;
 import seedu.address.model.student.Student;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Student}.
@@ -24,7 +32,7 @@ class JsonAdaptedStudent {
     private final String studyLevel;
     private final String guardianPhone;
     private final String relationship;
-
+    private final List<JsonAdaptedSession> sessions;
     /**
      * Constructs a {@code JsonAdaptedStudent} with the given student details.
      */
@@ -33,7 +41,8 @@ class JsonAdaptedStudent {
                               @JsonProperty("email") String email, @JsonProperty("address") String address,
                               @JsonProperty("studyLevel") String studyLevel,
                               @JsonProperty("guardianPhone") String guardianPhone,
-                              @JsonProperty("relationship") String relationship) {
+                              @JsonProperty("relationship") String relationship,
+                              @JsonProperty("sessions") List<JsonAdaptedSession> sessions) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -41,6 +50,7 @@ class JsonAdaptedStudent {
         this.studyLevel = studyLevel;
         this.guardianPhone = guardianPhone;
         this.relationship = relationship;
+        this.sessions = sessions;
     }
 
     /**
@@ -54,6 +64,7 @@ class JsonAdaptedStudent {
         studyLevel = source.getStudyLevel();
         guardianPhone = source.getGuardianPhone().value;
         relationship = source.getRelationship();
+        sessions = source.getListOfSessions().stream().map(JsonAdaptedSession::new).collect(Collectors.toList());
     }
 
     /**
@@ -113,8 +124,16 @@ class JsonAdaptedStudent {
         }
         final String modelRelationship = relationship;
 
-        return new Student(modelName, modelPhone, modelEmail, modelAddress, modelStudyLevel, modelGuardianPhone,
+        final List<Session> modelSessions = new ArrayList<>();
+        for (JsonAdaptedSession session : sessions) {
+            Session toModelType = session.toModelType();
+            modelSessions.add(toModelType);
+        }
+
+        Student s = new Student(modelName, modelPhone, modelEmail, modelAddress, modelStudyLevel, modelGuardianPhone,
             modelRelationship);
+        s.setListOfSessions(modelSessions);
+        return s;
     }
 
 }

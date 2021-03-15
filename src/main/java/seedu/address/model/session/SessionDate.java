@@ -14,7 +14,8 @@ public class SessionDate {
 
     private static final String INCORRECT_DATE_TIME_FORMAT_ERROR_MESSAGE = "Format of date or time is incorrect: ";
 
-
+    public String dateValue;
+    public String timeValue;
     private LocalDateTime dateTime;
 
     /**
@@ -25,6 +26,8 @@ public class SessionDate {
      */
     public SessionDate(String dateValue, String timeValue) throws SessionException {
         try {
+            this.dateValue = dateValue;
+            this.timeValue = timeValue;
             LocalDate localDate = LocalDate.parse(dateValue);
             LocalTime localTime = LocalTime.parse(timeValue);
 

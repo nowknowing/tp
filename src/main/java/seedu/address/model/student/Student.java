@@ -85,6 +85,10 @@ public class Student {
         this.sessions.add(session);
     }
 
+    public void setListOfSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
+
     /**
      * Returns true if both students have the same name.
      * This defines a weaker notion of equality between two students.

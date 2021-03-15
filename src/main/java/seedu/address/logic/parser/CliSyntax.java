@@ -13,6 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_STUDY_LEVEL = new Prefix("l/");
     public static final Prefix PREFIX_GUARDIAN_PHONE = new Prefix("g/");
     public static final Prefix PREFIX_RELATIONSHIP = new Prefix("r/");
+    public static final Prefix PREFIX_INDEX = new Prefix("i/");
 
     /* Prefix definitions for sessions */
     public static final Prefix PREFIX_DATE = new Prefix("d/");
