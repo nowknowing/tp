@@ -29,7 +29,7 @@ public class JsonAdaptedSession {
      * Converts a given {@code Session} into this class for Jackson use.
      */
     public JsonAdaptedSession(Session source) {
-        sessionDate = new JsonAdaptedSessionDate(source.getSessionDate().dateValue, source.getSessionDate().timeValue);
+        sessionDate = new JsonAdaptedSessionDate(source.getSessionDate());
         duration = source.getDuration().getValue();
         subject = source.getSubject().toString();
         fee = source.getFee().getString();

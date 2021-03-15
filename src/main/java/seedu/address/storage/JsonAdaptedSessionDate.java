@@ -10,7 +10,8 @@ public class JsonAdaptedSessionDate {
     private String timeValue;
 
     @JsonCreator
-    public JsonAdaptedSessionDate(@JsonProperty String dateValue, @JsonProperty String timeValue) {
+    public JsonAdaptedSessionDate(@JsonProperty("dateValue") String dateValue,
+                                  @JsonProperty("timeValue") String timeValue) {
         this.dateValue = dateValue;
         this.timeValue = timeValue;
     }
