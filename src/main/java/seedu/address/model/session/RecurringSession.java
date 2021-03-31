@@ -124,6 +124,22 @@ public class RecurringSession extends Session {
         return this.onSessionDate(lastSessionDate);
     }
 
+
+    /**
+     * Returns a non-recurring, single session that occurs after a given SessionDate.
+     * @param sessionDate A valid date, where a session exists after the date.
+     * @return A non-recurring single session, coming after sessionDate.
+     */
+    public Session firstSessionAfter(SessionDate sessionDate) {
+        requireAllNonNull(sessionDate);
+        checkArgument(!endBefore(sessionDate), "There exists no session after.");
+        SessionDate firstSessionDate = new SessionDate(
+                LocalDateTime.of(lastSessionOnOrBefore(sessionDate).getSessionDate().getDate()
+                                .plusDays(interval.getValue()),
+                        getSessionDate().getTime()).toString());
+        return this.onSessionDate(firstSessionDate);
+    }
+
     // THIS METHOD IS EXPECTED TO BE USED IN FEE CALCULATION.
     /**
      * Returns the number of session in the span.
