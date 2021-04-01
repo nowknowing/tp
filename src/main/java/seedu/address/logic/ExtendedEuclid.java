@@ -46,11 +46,11 @@ public class ExtendedEuclid {
         if (d > 0) {
             t = (int) Math.max(
                     Math.ceil((double) v * (double) cp / (double) ap),
-                    Math.ceil(( - (double) u * (double) cp) / (double) bp));
+                    Math.ceil(( -(double) u * (double) cp) / (double) bp));
         } else {
             t = (int) Math.max(
                     Math.floor((double) v * (double) cp / (double) ap),
-                    Math.floor(( - (double) u * (double) cp) / (double) bp));
+                    Math.floor(( -(double) u * (double) cp) / (double) bp));
         }
         int x = bp * t + u * cp;
         int negY = ap * t - v * cp;
