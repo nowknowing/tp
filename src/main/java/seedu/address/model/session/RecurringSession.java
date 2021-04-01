@@ -199,6 +199,9 @@ public class RecurringSession extends Session {
         if (this.startAfter(other.getSessionDate())) {
             return other.overlappingDateWith(this);
         }
+        if (this.endBefore(other.getSessionDate())) {
+            return false;
+        }
         int daysBetween = this.getSessionDate().numOfDayTo(other.getSessionDate());
         int thisInterval = this.interval.getValue();
         int otherInterval = other.interval.getValue();
