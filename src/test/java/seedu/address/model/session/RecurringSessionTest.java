@@ -137,7 +137,6 @@ class RecurringSessionTest extends SessionTest {
                 new SessionDate("2022-06-15", "10:00"));
         assertTrue(earlyRS2.overlappingDateWith(lateRS2));
 
-
         RecurringSession lateRS3 = new RecurringSession(lateStart2, DURATION, SUBJECT, FEE, new Interval("14"),
                 new SessionDate("2022-05-17", "10:00"));
         assertFalse(earlyRS2.overlappingDateWith(lateRS3));
