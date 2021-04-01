@@ -7,6 +7,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import seedu.address.logic.ExtendedEuclid;
+
 /**
  * Class that handles RecurringSession that extend Session.
  */
@@ -191,6 +193,38 @@ public class RecurringSession extends Session {
     public RecurringSession withLastSessionDate(SessionDate newLastSessionDate) {
         return new RecurringSession(getSessionDate(), getDuration(), getSubject(),
                 getFee(), getInterval(), newLastSessionDate);
+    }
+
+
+    /**
+     * Checks if this any session of {@RecurringSession} occurs on the same DATE as any session of {@other}
+     * @param other another recurring session
+     * @return true if any one session of this occurs on the same date as any one session of {@other}
+     */
+    public boolean overlappingDateWith(RecurringSession other) {
+        if (this.startAfter(other.getSessionDate())) {
+            return other.overlappingDateWith(this);
+        }
+        if (this.endBefore(other.getSessionDate())) {
+            return false;
+        }
+        int daysBetween = getSessionDate().numOfDayTo(other.getSessionDate());
+        int thisInterval = this.interval.getValue();
+        int otherInterval = other.interval.getValue();
+        int[] ans = ExtendedEuclid.gcd(thisInterval, otherInterval);
+        if (daysBetween % ans[0] != 0) {
+            return false;
+        }
+        int[] numOfIntervals = ExtendedEuclid.findMinPosXNegY(
+                thisInterval, otherInterval, daysBetween, ans[1], ans[2], ans[0]);
+        if (numOfIntervals[0] <= this.numOfSessionBetween(getSessionDate(), getLastSessionDate()) - 1
+            && numOfIntervals[0] >= 1
+            && numOfIntervals[1] <= other.numOfSessionBetween(other.getSessionDate(), other.getLastSessionDate()) - 1
+            && numOfIntervals[1] >= 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
