@@ -1,13 +1,12 @@
 package seedu.address.model.session;
 
-import seedu.address.logic.ExtendedEuclid;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import seedu.address.logic.ExtendedEuclid;
 
 /**
  * Class that handles RecurringSession that extend Session.
@@ -195,11 +194,17 @@ public class RecurringSession extends Session {
                 getFee(), getInterval(), newLastSessionDate);
     }
 
+
+    /**
+     * Checks if this any session of {@RecurringSession} occurs on the same DATE as any session of {@other}
+     * @param other another recurring session
+     * @return true if any one session of this occurs on the same date as any one session of {@other}
+     */
     public boolean overlappingDateWith(RecurringSession other) {
         if (this.startAfter(other.getSessionDate())) {
             return other.overlappingDateWith(this);
         }
-        if (this.endBefore(other.getSessionDate())) {
+        if (this.endBefore(other.getSessionDate()) || other.endBefore(this.getSessionDate())) {
             return false;
         }
         int daysBetween = this.getSessionDate().numOfDayTo(other.getSessionDate());
@@ -219,7 +224,9 @@ public class RecurringSession extends Session {
         int numOfThisInterval = (otherInterval * t + daysBetween * ans[1]) / ans[0];
         int numOfThatInterval = (-1 * thisInterval * t + daysBetween * ans[2]) / ans[0];
         if (numOfThisInterval <= this.numOfSessionBetween(getSessionDate(), getLastSessionDate())
-                && numOfThatInterval <= other.numOfSessionBetween(other.getSessionDate(), other.getLastSessionDate())) {
+                && numOfThisInterval > 0
+                && numOfThatInterval <= other.numOfSessionBetween(other.getSessionDate(), other.getLastSessionDate())
+                && numOfThatInterval > 0) {
             return true;
         } else {
             return false;
