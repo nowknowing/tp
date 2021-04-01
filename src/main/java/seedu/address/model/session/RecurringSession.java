@@ -219,7 +219,7 @@ public class RecurringSession extends Session {
         int[] numOfIntervals = ExtendedEuclid.findMinPosXNegY(
                 thisInterval, otherInterval, daysBetween, ans[1], ans[2], ans[0]);
         if (numOfIntervals[0] <= this.numOfSessionBetween(getSessionDate(), getLastSessionDate()) - 1
-            && numOfIntervals[0] >= 1
+            && numOfIntervals[0] >= 0
             && numOfIntervals[1] <= other.numOfSessionBetween(other.getSessionDate(), other.getLastSessionDate()) - 1
             && numOfIntervals[1] >= 0) {
             return true;
