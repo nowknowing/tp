@@ -1,6 +1,6 @@
 package seedu.address.logic;
 
-//CODE FROM https://introcs.cs.princeton.edu/java/99crypto/ExtendedEuclid.java.html
+//FIRST METHOD FROM https://introcs.cs.princeton.edu/java/99crypto/ExtendedEuclid.java.html
 
 /** Takes two positive arguments p and q and compute the greatest
  *  common divisor of p and q using the extended Euclid's algorithm.
