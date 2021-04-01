@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import seedu.address.logic.ExtendedEuclid;
 
 /**
@@ -219,8 +220,8 @@ public class RecurringSession extends Session {
         if (daysBetween % ans[0] != 0) {
             return false;
         }
-        int t = (int) Math.max( Math.ceil(-1 * (double) ans[1] * (double) daysBetween / (double) otherInterval),
-                Math.floor((double) ans[2] * (double) daysBetween/ (double) thisInterval));
+        int t = (int) Math.max(Math.ceil(-1 * (double) ans[1] * (double) daysBetween / (double) otherInterval),
+                Math.floor((double) ans[2] * (double) daysBetween / (double) thisInterval));
         int numOfThisInterval = (otherInterval * t + daysBetween * ans[1]) / ans[0];
         int numOfThatInterval = (-1 * thisInterval * t + daysBetween * ans[2]) / ans[0];
         if (numOfThisInterval <= this.numOfSessionBetween(getSessionDate(), getLastSessionDate())
