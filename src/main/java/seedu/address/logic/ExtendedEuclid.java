@@ -26,6 +26,18 @@ public class ExtendedEuclid {
         return new int[]{d, a, b};
     }
 
+    /**
+     * For equation ax + by = c, given a particular case au + bv = d, returns a set array of integer
+     * of smallest possible positive value x and largest possible negative value y,
+     * given a, b, c and x are positive and y always negative
+     * @param a a of ax+by=c
+     * @param b b of ax+by=c
+     * @param c c of ax+by=c
+     * @param u particular case
+     * @param v particular case
+     * @param d particular case
+     * @return minimum set of positive x and negative y
+     */
     public static int[] findMinPosXNegY(int a, int b, int c, int u, int v, int d) {
         int ap = a / d;
         int bp = b / d;
