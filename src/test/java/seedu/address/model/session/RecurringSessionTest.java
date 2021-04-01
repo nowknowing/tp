@@ -119,4 +119,15 @@ class RecurringSessionTest extends SessionTest {
         assertEquals(31, ans2);
     }
 
+    @Test
+    void overlappingDateWith() {
+        SessionDate earlyStart = new SessionDate("2022-04-19", "10:00");
+        SessionDate lateStart = new SessionDate("2022-05-10", "10:00");
+        RecurringSession earlyRS = new RecurringSession(earlyStart, DURATION, SUBJECT, FEE, new Interval("14"),
+                new SessionDate("2022-06-14", "10:00"));
+        RecurringSession lateRS = new RecurringSession(lateStart, DURATION, SUBJECT, FEE, new Interval("3"),
+                new SessionDate("2022-06-12", "10:00"));
+        System.out.println(earlyRS.overlappingDateWith(lateRS));
+    }
+
 }

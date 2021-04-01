@@ -1,5 +1,7 @@
 package seedu.address.model.session;
 
+import seedu.address.logic.ExtendedEuclid;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -191,6 +193,34 @@ public class RecurringSession extends Session {
     public RecurringSession withLastSessionDate(SessionDate newLastSessionDate) {
         return new RecurringSession(getSessionDate(), getDuration(), getSubject(),
                 getFee(), getInterval(), newLastSessionDate);
+    }
+
+    public boolean overlappingDateWith(RecurringSession other) {
+        if (this.startAfter(other.getSessionDate())) {
+            return other.overlappingDateWith(this);
+        }
+        int daysBetween = this.getSessionDate().numOfDayTo(other.getSessionDate());
+        int thisInterval = this.interval.getValue();
+        int otherInterval = other.interval.getValue();
+
+        if (daysBetween == thisInterval) {
+            return true;
+        }
+
+        int[] ans = ExtendedEuclid.gcd(thisInterval, otherInterval);
+        if (daysBetween % ans[0] != 0) {
+            return false;
+        }
+        int t = (int) Math.max( Math.ceil(-1 * (double) ans[1] * (double) daysBetween / (double) otherInterval),
+                Math.floor((double) ans[2] * (double) daysBetween/ (double) thisInterval));
+        int numOfThisInterval = (otherInterval * t + daysBetween * ans[1]) / ans[0];
+        int numOfThatInterval = (-1 * thisInterval * t + daysBetween * ans[2]) / ans[0];
+        if (numOfThisInterval <= this.numOfSessionBetween(getSessionDate(), getLastSessionDate())
+                && numOfThatInterval <= other.numOfSessionBetween(other.getSessionDate(), other.getLastSessionDate())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
