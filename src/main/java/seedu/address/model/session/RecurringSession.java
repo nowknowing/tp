@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.logic.ExtendedEuclid;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+
+import seedu.address.logic.ExtendedEuclid;
 
 
 /**
@@ -286,7 +286,7 @@ public class RecurringSession extends Session {
             return false;
         }
     }
-    
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
