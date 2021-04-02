@@ -65,7 +65,6 @@ public class RecurringSession extends Session {
             SessionDate sessionDate1, SessionDate sessionDate2, Interval interval) {
         requireAllNonNull(sessionDate1, sessionDate2, interval);
         int daysBetween = sessionDate1.numOfDayTo(sessionDate2);
-        //TODO: Disallow recurringsessions of 0 interval
         return daysBetween >= 0 && daysBetween % interval.getValue() == 0;
     }
 
@@ -266,7 +265,7 @@ public class RecurringSession extends Session {
         int daysBetween = getSessionDate().numOfDayTo(other.getSessionDate());
         int thisInterval = this.interval.getValue();
         int otherInterval = other.interval.getValue();
-        
+
         //if same start date, or earlier session recurs on first day of later session, return true
         if (this.getSessionDate().equals(other.getSessionDate()) || daysBetween % thisInterval == 0) {
             return true;
