@@ -256,9 +256,9 @@ public class RecurringSession extends Session {
      * @param other another recurring session
      * @return true if any one session of this occurs on the same date as any one session of {@other}
      */
-    public boolean overlappingDateWith(RecurringSession other) {
+    public boolean isOverlapDateWith(RecurringSession other) {
         if (this.startAfter(other.getSessionDate())) {
-            return other.overlappingDateWith(this);
+            return other.isOverlapDateWith(this);
         }
         if (this.endBefore(other.getSessionDate())) {
             return false;
