@@ -7,7 +7,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import seedu.address.logic.ExtendedEuclid;
 
 /**
  * Class that handles RecurringSession that extend Session.
@@ -208,6 +207,9 @@ public class RecurringSession extends Session {
         }
         if (this.endBefore(other.getSessionDate())) {
             return false;
+        }
+        if (this.getSessionDate().equals(other.getSessionDate())) {
+            return true;
         }
         int daysBetween = getSessionDate().numOfDayTo(other.getSessionDate());
         int thisInterval = this.interval.getValue();
