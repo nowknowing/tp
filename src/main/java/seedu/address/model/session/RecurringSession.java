@@ -266,6 +266,7 @@ public class RecurringSession extends Session {
         int daysBetween = getSessionDate().numOfDayTo(other.getSessionDate());
         int thisInterval = this.interval.getValue();
         int otherInterval = other.interval.getValue();
+        
         //if same start date, or earlier session recurs on first day of later session, return true
         if (this.getSessionDate().equals(other.getSessionDate()) || daysBetween % thisInterval == 0) {
             return true;
@@ -278,9 +279,7 @@ public class RecurringSession extends Session {
         int[] numOfIntervals = ExtendedEuclid.findMinPosXNegY(
                 thisInterval, otherInterval, daysBetween, ans[1], ans[2], ans[0]);
         if (numOfIntervals[0] <= this.numOfSessionBetween(getSessionDate(), getLastSessionDate()) - 1
-            && numOfIntervals[0] >= 0
-            && numOfIntervals[1] <= other.numOfSessionBetween(other.getSessionDate(), other.getLastSessionDate()) - 1
-            && numOfIntervals[1] >= 0) {
+            && numOfIntervals[1] <= other.numOfSessionBetween(other.getSessionDate(), other.getLastSessionDate()) - 1) {
             return true;
         } else {
             return false;
