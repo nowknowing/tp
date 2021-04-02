@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.address.logic.ExtendedEuclid;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -208,12 +210,14 @@ public class RecurringSession extends Session {
         if (this.endBefore(other.getSessionDate())) {
             return false;
         }
-        if (this.getSessionDate().equals(other.getSessionDate())) {
-            return true;
-        }
         int daysBetween = getSessionDate().numOfDayTo(other.getSessionDate());
         int thisInterval = this.interval.getValue();
         int otherInterval = other.interval.getValue();
+        //if same start date, or earlier session recurs on first day of later session, return true
+        if (this.getSessionDate().equals(other.getSessionDate()) || daysBetween % thisInterval == 0) {
+            return true;
+        }
+
         int[] ans = ExtendedEuclid.gcd(thisInterval, otherInterval);
         if (daysBetween % ans[0] != 0) {
             return false;
