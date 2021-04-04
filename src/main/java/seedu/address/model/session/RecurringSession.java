@@ -176,14 +176,7 @@ public class RecurringSession extends Session {
 
         return (firstInSpan.numOfDayTo(lastInSpan) / interval.getValue()) + 1;
     }
-
-    /**
-     * Checks if the {@code Session} slot overlaps with all recurring sessions.
-     * @param otherSession the other session that is compared to.
-     */
-    public boolean isOverlapping(Session otherSession) {
-        return otherSession.isOverlapping(this);
-    }
+    
 
     /**
      * Checks if all {@code RecurringSession} slots overlaps with all recurring sessions.
